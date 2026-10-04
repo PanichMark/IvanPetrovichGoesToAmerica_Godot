@@ -1,4 +1,3 @@
-﻿using System.Collections.Generic;
 using Godot;
 [GlobalClass]
 public partial class BootstrapGameDataList : Resource
@@ -6,7 +5,7 @@ public partial class BootstrapGameDataList : Resource
 	[Export] public int NumberOfSafeFileSlots { get; set; } = 20;
 	[Export] public Godot.Collections.Array<Texture2D> NPCdetectionSignFrames { get; set; } = new();
 	[Export] public AudioBusLayout AudioBusLayout { get; set; }
-	[Export] public string LocalizationMain { get; set; } = string.Empty;
+	[Export(PropertyHint.File, "*.csv")] public string LocalizationMain { get; set; } = "res://Localization/LocalizationMain.csv";
 	[Export] public TermsAndConditions TermsAndConditions { get; set; }
 	[Export] public GameNews GameNews { get; set; }
     [Export] public GameCanvasesList GameCanvasesList { get; set; }
