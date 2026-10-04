@@ -1,0 +1,28 @@
+﻿public enum NPCstateTypes
+{
+	StationaryAction,
+	Patrolling,
+	ReturningToStationaryAction,
+	Interested,
+	Alarmed,
+	Chasing,
+	Attacking,
+	Reloading,
+	Searching,
+	Huddled,
+	Hysteric,
+	Fleeing,
+	Strangled,
+	Hooked,
+	Staggered,
+	KnockedOff,
+	BlownAway,
+	ElectroShocked,
+	Falling,
+	StandingUp,
+	Carried,
+	Dizzy,
+	Unconscious,
+	Dying,
+	Dead
+}
