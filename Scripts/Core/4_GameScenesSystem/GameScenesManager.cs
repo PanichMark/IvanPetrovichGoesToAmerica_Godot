@@ -12,6 +12,7 @@ public partial class GameScenesManager : Node
 	public bool WasInitialSceneLoaded { get; private set; }
 	public GameScenesSystemEnum PreviousScene { get; private set; }
 	public GameScenesSystemEnum? CurrentScene { get; private set; }
+	public Node CurrentGameplaySceneNode => _loadedSceneNode;
 
 	public event Action OnBeginLoadingMainMenuScene;
 	public event Action OnBeginLoadingMainMenuOrEndGameTitlesScene;
