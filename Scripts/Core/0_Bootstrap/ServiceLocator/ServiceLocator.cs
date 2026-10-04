@@ -22,7 +22,6 @@ public static class ServiceLocator
 
     public static void Register(ServiceLocatorGameObjectsEnum tag, Godot.Node node)
     {
-        ArgumentNullException.ThrowIfNull(node);
         if (_nodes.ContainsKey(tag))
         {
             throw new InvalidOperationException($"Node for {tag} is already registered.");
@@ -32,7 +31,6 @@ public static class ServiceLocator
 
     public static void Register(ServiceLocatorAudioSourcesEnum key, Godot.AudioStreamPlayer source)
     {
-        ArgumentNullException.ThrowIfNull(source);
         if (_audioPlayers.ContainsKey(key))
         {
             throw new InvalidOperationException($"Audio player for {key} is already registered.");
@@ -52,18 +50,18 @@ public static class ServiceLocator
 
     public static Godot.Node Resolve(ServiceLocatorGameObjectsEnum tag)
     {
-        if (!_nodes.TryGetValue(tag, out var node) || !Godot.GodotObject.IsInstanceValid(node))
+        if (!_nodes.TryGetValue(tag, out var node))
         {
-            throw new KeyNotFoundException($"Node for {tag} was not registered or is no longer valid.");
+            throw new KeyNotFoundException($"Node for {tag} was not registered.");
         }
         return node;
     }
 
     public static Godot.AudioStreamPlayer Resolve(ServiceLocatorAudioSourcesEnum key)
     {
-        if (!_audioPlayers.TryGetValue(key, out var source) || !Godot.GodotObject.IsInstanceValid(source))
+        if (!_audioPlayers.TryGetValue(key, out var source))
         {
-            throw new KeyNotFoundException($"Audio player for {key} was not registered or is no longer valid.");
+            throw new KeyNotFoundException($"Audio player for {key} was not registered.");
         }
         return source;
     }

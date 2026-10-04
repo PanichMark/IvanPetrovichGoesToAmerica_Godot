@@ -92,7 +92,8 @@ public partial class Bootstrap : Node
 
 		ServiceLocator.ClearAllServices();
 
-		_canvasBootstrapInitialization = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasBootstrapInitialization);
+		_canvasBootstrapInitialization = _gameData.GameCanvasesList.CanvasBootstrapInitialization.Instantiate();
+		AddChild(_canvasBootstrapInitialization);
 		_canvasBootstrapInitialization.SetActive(true);
 		_viewModelBootstrapInitialization = new ViewModelBootstrapInitialization(this, _canvasBootstrapInitialization);
 		_viewModelBootstrapInitialization.BootstrapInitializationPart1.SetActive(true);
@@ -146,12 +147,12 @@ public partial class Bootstrap : Node
 
 		_viewModelBootstrapInitialization.BootstrapInitializationPart2.SetActive(false);
 		_viewModelBootstrapInitialization.BootstrapInitializationPart3.SetActive(true);
-		_viewModelBootstrapInitialization.TextSavingProcessIcon.FindNodeOfType<Label>().Text = LocalizationManager.GetLocalizedString("UI_Menu_Bootstrap_SavingProcess");
+		((Label)_viewModelBootstrapInitialization.TextSavingProcessIcon.FindChild("*", true, false)).Text = LocalizationManager.GetLocalizedString("UI_Menu_Bootstrap_SavingProcess");
 
 		await WaitForDurationOrInput(duration * 1.5f);
 
 		_canvasBootstrapInitialization.SetActive(false);
-		_gameObjectBootstrapTemporaryCamera?.QueueFree();
+		_gameObjectBootstrapTemporaryCamera.QueueFree();
 
 		await LoadFirstGameplayScene();
 
@@ -180,10 +181,7 @@ public partial class Bootstrap : Node
 
 	private void RotateGear(float speed, float delta)
 	{
-		if (_viewModelBootstrapInitialization?.Gear is Node2D gear)
-		{
-			gear.Rotation += Mathf.DegToRad(speed) * delta;
-		}
+		((Node2D)_viewModelBootstrapInitialization.Gear).Rotation += Mathf.DegToRad(speed) * delta;
 	}
 
 	private async Task BootstrapSystemsInitialization()
@@ -223,40 +221,66 @@ public partial class Bootstrap : Node
 
 	private void InitializeCanvases()
 	{
-		_canvasBootstrapChooseFirstLanguage = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasBootstrapChooseFirstLanguage);
-		_canvasBootstrapSignTermsAndConditions = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasBootstrapSignTermsAndConditions);
+		_canvasBootstrapChooseFirstLanguage = _gameData.GameCanvasesList.CanvasBootstrapChooseFirstLanguage.Instantiate();
+		AddChild(_canvasBootstrapChooseFirstLanguage);
+		_canvasBootstrapSignTermsAndConditions = _gameData.GameCanvasesList.CanvasBootstrapSignTermsAndConditions.Instantiate();
+		AddChild(_canvasBootstrapSignTermsAndConditions);
 
-		_canvasSceneLoadingScreen = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasSceneLoadingScreen);
+		_canvasSceneLoadingScreen = _gameData.GameCanvasesList.CanvasSceneLoadingScreen.Instantiate();
+		AddChild(_canvasSceneLoadingScreen);
 	
-		_canvasSavingProcess = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasSavingProcess);
+		_canvasSavingProcess = _gameData.GameCanvasesList.CanvasSavingProcess.Instantiate();
+		AddChild(_canvasSavingProcess);
 
-		_canvasMenuBackground = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasMenuBackground);
+		_canvasMenuBackground = _gameData.GameCanvasesList.CanvasMenuBackground.Instantiate();
+		AddChild(_canvasMenuBackground);
 
-	    _canvasPauseMenu = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasPauseMenu);
-		_canvasPauseSubMenuSave = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasPauseSubMenuSave);
-		_canvasPauseSubMenuLoad = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasPauseSubMenuLoad);
-		_canvasPauseSubMenuAppearance = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasPauseSubMenuAppearance);
-		_canvasPauseSubMenuTutorial = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasPauseSubMenuTutorial);
-		_canvasPauseSubMenuSettings = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasPauseSubMenuSettings);
-		_canvasPauseSubMenuSettingsGameDifficulty = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasPauseSubMenuSettingsGameDifficulty);
-		_canvasPauseMenuConfirmAction = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasPauseMenuConfirmAction);
+	    _canvasPauseMenu = _gameData.GameCanvasesList.CanvasPauseMenu.Instantiate();
+		AddChild(_canvasPauseMenu);
+		_canvasPauseSubMenuSave = _gameData.GameCanvasesList.CanvasPauseSubMenuSave.Instantiate();
+		AddChild(_canvasPauseSubMenuSave);
+		_canvasPauseSubMenuLoad = _gameData.GameCanvasesList.CanvasPauseSubMenuLoad.Instantiate();
+		AddChild(_canvasPauseSubMenuLoad);
+		_canvasPauseSubMenuAppearance = _gameData.GameCanvasesList.CanvasPauseSubMenuAppearance.Instantiate();
+		AddChild(_canvasPauseSubMenuAppearance);
+		_canvasPauseSubMenuTutorial = _gameData.GameCanvasesList.CanvasPauseSubMenuTutorial.Instantiate();
+		AddChild(_canvasPauseSubMenuTutorial);
+		_canvasPauseSubMenuSettings = _gameData.GameCanvasesList.CanvasPauseSubMenuSettings.Instantiate();
+		AddChild(_canvasPauseSubMenuSettings);
+		_canvasPauseSubMenuSettingsGameDifficulty = _gameData.GameCanvasesList.CanvasPauseSubMenuSettingsGameDifficulty.Instantiate();
+		AddChild(_canvasPauseSubMenuSettingsGameDifficulty);
+		_canvasPauseMenuConfirmAction = _gameData.GameCanvasesList.CanvasPauseMenuConfirmAction.Instantiate();
+		AddChild(_canvasPauseMenuConfirmAction);
 
-		_canvasMainMenuChooseMission = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasMainMenuChooseMission);
-		_canvasMainMenuReadNews = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasMainMenuReadNews);
+		_canvasMainMenuChooseMission = _gameData.GameCanvasesList.CanvasMainMenuChooseMission.Instantiate();
+		AddChild(_canvasMainMenuChooseMission);
+		_canvasMainMenuReadNews = _gameData.GameCanvasesList.CanvasMainMenuReadNews.Instantiate();
+		AddChild(_canvasMainMenuReadNews);
 
-		_canvasMenuWeaponWheel = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasMenuWeaponWheel);
-		_canvasMenuCutscene = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasMenuCutscene);
+		_canvasMenuWeaponWheel = _gameData.GameCanvasesList.CanvasMenuWeaponWheel.Instantiate();
+		AddChild(_canvasMenuWeaponWheel);
+		_canvasMenuCutscene = _gameData.GameCanvasesList.CanvasMenuCutscene.Instantiate();
+		AddChild(_canvasMenuCutscene);
 
-		_canvasHUDhealthAndMana = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasHUDhealthAndMana);
-		_canvasHUDweapons = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasHUDweapons);
-		_canvasHUDinteraction = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasHUDinteraction);
-		_canvasHUDmission = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasHUDmission);
-		_canvasHUDmonocular = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasHUDmonocular);
+		_canvasHUDhealthAndMana = _gameData.GameCanvasesList.CanvasHUDhealthAndMana.Instantiate();
+		AddChild(_canvasHUDhealthAndMana);
+		_canvasHUDweapons = _gameData.GameCanvasesList.CanvasHUDweapons.Instantiate();
+		AddChild(_canvasHUDweapons);
+		_canvasHUDinteraction = _gameData.GameCanvasesList.CanvasHUDinteraction.Instantiate();
+		AddChild(_canvasHUDinteraction);
+		_canvasHUDmission = _gameData.GameCanvasesList.CanvasHUDmission.Instantiate();
+		AddChild(_canvasHUDmission);
+		_canvasHUDmonocular = _gameData.GameCanvasesList.CanvasHUDmonocular.Instantiate();
+		AddChild(_canvasHUDmonocular);
 
-		_canvasMenuNote = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasMenuNote);
-		_canvasMenuLockpickElectronic = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasMenuLockpickElectronic);
-		_canvasMenuLockpickMechanical = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasMenuLockpickMechanical);
-		_canvasMenuDialogue = this.InstantiateGodot(_gameData.GameCanvasesList.CanvasMenuDialogue);
+		_canvasMenuNote = _gameData.GameCanvasesList.CanvasMenuNote.Instantiate();
+		AddChild(_canvasMenuNote);
+		_canvasMenuLockpickElectronic = _gameData.GameCanvasesList.CanvasMenuLockpickElectronic.Instantiate();
+		AddChild(_canvasMenuLockpickElectronic);
+		_canvasMenuLockpickMechanical = _gameData.GameCanvasesList.CanvasMenuLockpickMechanical.Instantiate();
+		AddChild(_canvasMenuLockpickMechanical);
+		_canvasMenuDialogue = _gameData.GameCanvasesList.CanvasMenuDialogue.Instantiate();
+		AddChild(_canvasMenuDialogue);
 
 		GD.Print("=== CANVASES INITIALIZED ===");
 	}
@@ -329,12 +353,10 @@ public partial class Bootstrap : Node
 
 	private async Task InitializePlayerSystems()
 	{
-		_gameObjectPlayer = _playerScene is null
-			? throw new InvalidOperationException("Assign the player PackedScene to Bootstrap.PlayerScene in the Godot inspector.")
-			: this.InstantiateGodot(_playerScene);
-		GameObjectPlayerCamera = _playerCameraScene is null
-			? throw new InvalidOperationException("Assign the player camera PackedScene to Bootstrap.PlayerCameraScene in the Godot inspector.")
-			: this.InstantiateGodot(_playerCameraScene);
+		_gameObjectPlayer = _playerScene.Instantiate();
+		AddChild(_gameObjectPlayer);
+		GameObjectPlayerCamera = _playerCameraScene.Instantiate();
+		AddChild(GameObjectPlayerCamera);
 
 		_bootstrapSubProcessPlayerSystems = new BootstrapSubProcessPlayerSystems(
 			this,
