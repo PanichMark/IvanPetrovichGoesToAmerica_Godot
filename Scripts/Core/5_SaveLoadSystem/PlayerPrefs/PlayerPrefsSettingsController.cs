@@ -85,6 +85,8 @@ public partial class PlayerPrefsSettingsController : Node
 	public void SaveSettingsGraphics(PlayerPrefsData data)
 	{
 		ArgumentNullException.ThrowIfNull(data);
+		Set(SettingsSection, ScreenResolution, data.ScreenResolution);
+		Set(SettingsSection, WindowType, data.WindowType);
 		SaveConfig();
 	}
 
@@ -105,6 +107,8 @@ public partial class PlayerPrefsSettingsController : Node
 	{
 		PlayerPrefsData data = new();
 		data.SetBootstrapPrerequisitesMet(BootstrapArePrerequisitesMet);
+		data.ScreenResolution = GetString(SettingsSection, ScreenResolution, string.Empty);
+		data.WindowType = GetString(SettingsSection, WindowType, string.Empty);
 		data.FPSlimit = GetInt(SettingsSection, FPSlimit, 60);
 		data.CameraFOV = GetFloat(SettingsSection, CameraFOV, 60f);
 		data.ScreenBrightness = GetFloat(SettingsSection, ScreenBrightness, 50f);
@@ -157,7 +161,12 @@ public partial class PlayerPrefsSettingsController : Node
 		SaveConfig();
 	}
 
-	public void ResetSettingsGraphics() => SaveConfig();
+	public void ResetSettingsGraphics()
+	{
+		_config.EraseSectionKey(SettingsSection, ScreenResolution);
+		_config.EraseSectionKey(SettingsSection, WindowType);
+		SaveConfig();
+	}
 
 	public void ResetSettingsAudio()
 	{
