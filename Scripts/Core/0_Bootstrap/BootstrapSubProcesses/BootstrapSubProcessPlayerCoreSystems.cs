@@ -18,8 +18,8 @@ public class BootstrapSubProcessPlayerSystems
 	public Node GameObjectPlayerFirstPersonHandRight { get; private set; }
 	public Node GameObjectPlayerFirstPersonHandLeft { get; private set; }
 
-	public TransferSkinnedMeshRendererArmatureBones TransferBonesFirstPerson { get; private set; }
-	public TransferSkinnedMeshRendererArmatureBones TransferBonesThirdPerson {  get; private set; }	
+	public Node TransferBonesFirstPerson { get; private set; }
+	public Node TransferBonesThirdPerson {  get; private set; }
 
 	public AudioStreamPlayer PlayerAudioVoice { get; private set; }
 	public AudioStreamPlayer PlayerAudioMovement { get; private set; }
@@ -73,26 +73,26 @@ public class BootstrapSubProcessPlayerSystems
 	public System.Threading.Tasks.Task Initialize()
 	{
 		_gameObjectPlayerCollider = _bootstrap.FindDeepNode(_gameObjectPlayer, "PlayerCollider");
-		PlayerCameraFirstPerson = _bootstrap.FindDeepNode(_gameObjectPlayerCamera, "CameraFirstPerson");
-		PlayerCameraPostProcessing = _bootstrap.FindDeepNode(_gameObjectPlayerCamera, "CameraIgnorePostProcessing");
+		PlayerCameraFirstPerson = _bootstrap.FindDeepNode(_gameObjectPlayerCamera, "CameraFirstPerson") ?? _gameObjectPlayerCamera;
+		PlayerCameraPostProcessing = _bootstrap.FindDeepNode(_gameObjectPlayerCamera, "CameraIgnorePostProcessing") ?? _gameObjectPlayerCamera;
 
-		PlayerBehaviour = _gameObjectPlayer.FindNodeOfType<PlayerBehaviourController>();
-		PlayerMovementController = _gameObjectPlayer.FindNodeOfType<PlayerMovementController>();
-		PlayerMovementStateMachineController = _gameObjectPlayer.FindNodeOfType<PlayerMovementStateMachineController>();
-		_playerColliderController = _gameObjectPlayer.GetComponentInChildren<PlayerColliderController>();
-		_playerMovementAnimationController = _gameObjectPlayer.FindNodeOfType<PlayerMovementAnimationController>();
+		PlayerBehaviour = FindOrCreate<PlayerBehaviourController>(_gameObjectPlayer);
+		PlayerMovementController = FindOrCreate<PlayerMovementController>(_gameObjectPlayer);
+		PlayerMovementStateMachineController = FindOrCreate<PlayerMovementStateMachineController>(_gameObjectPlayer);
+		_playerColliderController = FindOrCreate<PlayerColliderController>(_gameObjectPlayer);
+		_playerMovementAnimationController = FindOrCreate<PlayerMovementAnimationController>(_gameObjectPlayer);
 
-		PlayerCameraController = _gameObjectPlayerCamera.FindNodeOfType<PlayerCameraController>();
-		PlayerCameraStateMachineController = _gameObjectPlayerCamera.FindNodeOfType<PlayerCameraStateMachineController>();
-		_playerCameraBlurFilter = _gameObjectPlayerCamera.FindNodeOfType<PlayerCameraVolumeController>();
-		_playerCameraFirstPersonRender = _gameObjectPlayerCamera.FindNodeOfType<PlayerCameraFirstPersonRenderer>();
+		PlayerCameraController = FindOrCreate<PlayerCameraController>(_gameObjectPlayerCamera);
+		PlayerCameraStateMachineController = FindOrCreate<PlayerCameraStateMachineController>(_gameObjectPlayerCamera);
+		_playerCameraBlurFilter = FindOrCreate<PlayerCameraVolumeController>(_gameObjectPlayerCamera);
+		_playerCameraFirstPersonRender = FindOrCreate<PlayerCameraFirstPersonRenderer>(_gameObjectPlayerCamera);
 
-		PlayerResourcesHealthManager = _gameObjectPlayer.FindNodeOfType<PlayerHealthController>();
-		PlayerResourcesManaManager = _gameObjectPlayer.FindNodeOfType<PlayerManaController>();
-		PlayerResourcesMoneyManager = _gameObjectPlayer.FindNodeOfType<PlayerMoneyController>();
+		PlayerResourcesHealthManager = FindOrCreate<PlayerHealthController>(_gameObjectPlayer);
+		PlayerResourcesManaManager = FindOrCreate<PlayerManaController>(_gameObjectPlayer);
+		PlayerResourcesMoneyManager = FindOrCreate<PlayerMoneyController>(_gameObjectPlayer);
 
 		_gameObjectPlayerHead = _bootstrap.FindDeepNode(_gameObjectPlayer, "PlayerHead");
-		_gameobjectPlayerEyesLookAt = _bootstrap.FindDeepNode(_gameObjectPlayer, "EyesLookAt");
+		_gameobjectPlayerEyesLookAt = _bootstrap.FindDeepNode(_gameObjectPlayer, "EyesLookAt") ?? _gameObjectPlayer;
 		GameObjectPlayerHatSlot = _bootstrap.FindDeepNode(_gameObjectPlayer, "PlayerHatSlot");
 
 		GameObjectPlayerFirstPersonHandRight = _bootstrap.FindDeepNode(_gameObjectPlayerCamera, "PlayerFirstPersonArmRight");
@@ -100,18 +100,21 @@ public class BootstrapSubProcessPlayerSystems
 		GameObjectPlayerThirdPersonHandRight = _bootstrap.FindDeepNode(_gameObjectPlayer, "PlayerThirdPersonArmRight");
 		GameObjectPlayerThirdPersonHandLeft = _bootstrap.FindDeepNode(_gameObjectPlayer, "PlayerThirdPersonArmLeft");
 
-		PlayerAudioVoice = _bootstrap.FindDeepNode(_gameObjectPlayer, "PlayerAudioVoice").FindNodeOfType<AudioStreamPlayer>();
-		PlayerAudioMovement = _bootstrap.FindDeepNode(_gameObjectPlayer, "PlayerAudioMovement").FindNodeOfType<AudioStreamPlayer>();
-		PlayerAudioWeaponRight = _bootstrap.FindDeepNode(_gameObjectPlayer, "PlayerAudioWeaponRight").FindNodeOfType<AudioStreamPlayer>();
-		PlayerAudioWeaponLeft = _bootstrap.FindDeepNode(_gameObjectPlayer, "PlayerAudioWeaponLeft").FindNodeOfType<AudioStreamPlayer>();
+		PlayerAudioVoice = FindAudioPlayer(_gameObjectPlayer, "PlayerAudioVoice");
+		PlayerAudioMovement = FindAudioPlayer(_gameObjectPlayer, "PlayerAudioMovement");
+		PlayerAudioWeaponRight = FindAudioPlayer(_gameObjectPlayer, "PlayerAudioWeaponRight");
+		PlayerAudioWeaponLeft = FindAudioPlayer(_gameObjectPlayer, "PlayerAudioWeaponLeft");
 
-		TransferBonesThirdPerson = _gameObjectPlayer.FindNodeOfType<TransferSkinnedMeshRendererArmatureBones>();
-		TransferBonesFirstPerson = _gameObjectPlayerCamera.FindNodeOfType<TransferSkinnedMeshRendererArmatureBones>();
+		TransferBonesThirdPerson = _gameObjectPlayer.FindDeepNode("TransferBonesThirdPerson");
+		TransferBonesFirstPerson = _gameObjectPlayerCamera.FindDeepNode("TransferBonesFirstPerson");
 
-		var canvasComponentBackgroundMenu = _canvasMenuBackground.FindNodeOfType<Canvas>();
-		var PlayerCameraComponentPostProcessing = PlayerCameraPostProcessing.FindNodeOfType<Camera3D>();
-		canvasComponentBackgroundMenu.worldCamera = PlayerCameraComponentPostProcessing;
-		canvasComponentBackgroundMenu.planeDistance = 2;
+		var canvasComponentBackgroundMenu = _canvasMenuBackground.FindDeepNodeOfType<Canvas>();
+		var cameraPostProcessing = PlayerCameraPostProcessing.FindDeepNodeOfType<Camera3D>();
+		if (canvasComponentBackgroundMenu != null && cameraPostProcessing != null)
+		{
+			canvasComponentBackgroundMenu.worldCamera = cameraPostProcessing;
+			canvasComponentBackgroundMenu.planeDistance = 2;
+		}
 
 		PlayerBehaviour.Initialize(
 			_bootstrap,
@@ -121,6 +124,7 @@ public class BootstrapSubProcessPlayerSystems
 		PlayerMovementController.Initialize(_bootstrap,
 			_gameSceneManager,
 			PlayerBehaviour);
+		PlayerMovementController.SetInputDevice(_inputDevice);
 
 		PlayerMovementStateMachineController.Initialize(
 			_bootstrap,
@@ -153,12 +157,12 @@ public class BootstrapSubProcessPlayerSystems
 			PlayerMovementStateMachineController,
 			PlayerCameraController);
 
-		_playerCameraBlurFilter.Initialize(
+		_playerCameraBlurFilter?.Initialize(
 			_bootstrapSubProcessMenuSystem.MenuManager,
 			_bootstrapSubProcessMenuSystem.PauseSubMenuSettingsSectionGeneralController,
 			PlayerCameraFirstPerson);
 
-		_playerCameraFirstPersonRender.Initialize(
+		_playerCameraFirstPersonRender?.Initialize(
 			PlayerCameraStateMachineController,
 			_gameObjectPlayerHead,
 			GameObjectPlayerHatSlot);
@@ -179,6 +183,7 @@ public class BootstrapSubProcessPlayerSystems
 			PlayerMovementStateMachineController,
 			_bootstrapSubProcessMenuSystem.ViewModelHUDhealthAndMana,
 			_bootstrapSubProcessMenuSystem.ViewModelWeaponWheel);
+		PlayerMovementStateMachineController.SetHealthController(PlayerResourcesHealthManager);
 
 		PlayerResourcesManaManager.Initialize(
 			_bootstrapSubProcessMenuSystem.ViewModelHUDhealthAndMana,
@@ -192,23 +197,41 @@ ServiceLocator.Register<PlayerMovementController>(PlayerMovementController);
 ServiceLocator.Register<PlayerMovementStateMachineController>(PlayerMovementStateMachineController);
 ServiceLocator.Register<PlayerCameraController>(PlayerCameraController);
 ServiceLocator.Register<PlayerCameraStateMachineController>(PlayerCameraStateMachineController);
-ServiceLocator.Register<PlayerCameraVolumeController>(_playerCameraBlurFilter);
+	if (_playerCameraBlurFilter != null) ServiceLocator.Register<PlayerCameraVolumeController>(_playerCameraBlurFilter);
 
 ServiceLocator.Register<PlayerHealthController>(PlayerResourcesHealthManager);
 ServiceLocator.Register<PlayerManaController>(PlayerResourcesManaManager);
 ServiceLocator.Register<PlayerMoneyController>(PlayerResourcesMoneyManager);
 
-		ServiceLocator.Register(ServiceLocatorAudioSourcesEnum.PlayerAudioVoice, PlayerAudioVoice);
-ServiceLocator.Register(ServiceLocatorAudioSourcesEnum.PlayerAudioMovement, PlayerAudioMovement);
-ServiceLocator.Register(ServiceLocatorAudioSourcesEnum.PlayerAudioWeaponRight, PlayerAudioWeaponRight);
-ServiceLocator.Register(ServiceLocatorAudioSourcesEnum.PlayerAudioWeaponLeft, PlayerAudioWeaponLeft);
+		if (PlayerAudioVoice != null) ServiceLocator.Register(ServiceLocatorAudioSourcesEnum.PlayerAudioVoice, PlayerAudioVoice);
+		if (PlayerAudioMovement != null) ServiceLocator.Register(ServiceLocatorAudioSourcesEnum.PlayerAudioMovement, PlayerAudioMovement);
+		if (PlayerAudioWeaponRight != null) ServiceLocator.Register(ServiceLocatorAudioSourcesEnum.PlayerAudioWeaponRight, PlayerAudioWeaponRight);
+		if (PlayerAudioWeaponLeft != null) ServiceLocator.Register(ServiceLocatorAudioSourcesEnum.PlayerAudioWeaponLeft, PlayerAudioWeaponLeft);
 
 	ServiceLocator.Register(ServiceLocatorGameObjectsEnum.Player, _gameObjectPlayer);
 	ServiceLocator.Register(ServiceLocatorGameObjectsEnum.PlayerEyes, _gameobjectPlayerEyesLookAt);
-	ServiceLocator.Register(ServiceLocatorGameObjectsEnum.PlayerHead, _gameObjectPlayerHead);
+	if (_gameObjectPlayerHead != null) ServiceLocator.Register(ServiceLocatorGameObjectsEnum.PlayerHead, _gameObjectPlayerHead);
 	ServiceLocator.Register(ServiceLocatorGameObjectsEnum.PlayerCollider, _gameObjectPlayerCollider);
 	ServiceLocator.Register(ServiceLocatorGameObjectsEnum.PlayerCamera, _gameObjectPlayerCamera);
 
 		return System.Threading.Tasks.Task.CompletedTask;
+	}
+
+	private static T FindOrCreate<T>(Node parent) where T : Node, new()
+	{
+		T existing = parent.FindDeepNodeOfType<T>();
+		if (existing != null)
+			return existing;
+
+		T created = new();
+		created.Name = typeof(T).Name;
+		parent.AddChild(created);
+		return created;
+	}
+
+	private static AudioStreamPlayer FindAudioPlayer(Node root, string nodeName)
+	{
+		Node audioNode = root?.FindDeepNode(nodeName);
+		return audioNode?.FindDeepNodeOfType<AudioStreamPlayer>();
 	}
 }
