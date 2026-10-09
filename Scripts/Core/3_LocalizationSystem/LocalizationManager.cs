@@ -50,6 +50,26 @@ public sealed class LocalizationManager
 		return key ?? string.Empty;
 	}
 
+	public string GetNoteLanguageSuffix(InteractionObjectNoteData note)
+	{
+		if (note == null)
+			return string.Empty;
+
+		string path = CurrentLanguage == LanguagesEnum.Russian ? note.NoteText_RU : note.NoteText_EN;
+		if (string.IsNullOrWhiteSpace(path))
+			path = CurrentLanguage == LanguagesEnum.Russian ? note.NoteText_EN : note.NoteText_RU;
+		if (string.IsNullOrWhiteSpace(path))
+			return string.Empty;
+
+		if (!FileAccess.FileExists(path))
+		{
+			GD.PushWarning($"Note text file '{path}' was not found.");
+			return string.Empty;
+		}
+
+		return FileAccess.GetFileAsString(path);
+	}
+
 	private void LoadFromLocalizationCsv(string csvPath)
 	{
 		if (string.IsNullOrWhiteSpace(csvPath))

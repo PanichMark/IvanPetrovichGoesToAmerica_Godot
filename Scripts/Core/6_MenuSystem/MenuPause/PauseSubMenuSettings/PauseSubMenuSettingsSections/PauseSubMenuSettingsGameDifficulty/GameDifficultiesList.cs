@@ -1,6 +1,7 @@
 using Godot;
-using System.Collections.Generic;
-public class GameDifficultiesList : Resource
+
+[GlobalClass]
+public partial class GameDifficultiesList : Resource
 {
-	public List<InteractionObjectNoteData> Notes = new List<InteractionObjectNoteData>();
+	[Export] public Godot.Collections.Array<InteractionObjectNoteData> Notes { get; set; } = new();
 }

@@ -1,5 +1,5 @@
 ﻿using Godot;
-using System;
+using System.Linq;
 
 [GlobalClass]
 public partial class ConfigPlayerAmmo : Resource
