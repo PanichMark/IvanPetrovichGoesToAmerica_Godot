@@ -75,6 +75,11 @@ public class BootstrapSubProcessWeaponSystem
 		_gameObjectFirstPersonLeftHandWeaponSlot = _bootstrap.FindDeepNode(_gameObjectPlayerCamera, "WeaponSlot_Hand.L");
 		_gameObjectThirdPersonRightHandWeaponSlot = _bootstrap.FindDeepNode(_gameObjectPlayer, "WeaponSlot_Hand.R");
 		_gameObjectThirdPersonLeftHandWeaponSlot = _bootstrap.FindDeepNode(_gameObjectPlayer, "WeaponSlot_Hand.L");
+		WeaponController.ConfigureWeaponSlots(
+			_gameObjectFirstPersonRightHandWeaponSlot,
+			_gameObjectFirstPersonLeftHandWeaponSlot,
+			_gameObjectThirdPersonRightHandWeaponSlot,
+			_gameObjectThirdPersonLeftHandWeaponSlot);
 
 		PlayerResourcesAmmoManager.Initialize();
 

@@ -5,7 +5,7 @@ public partial class PlayerInteractionController : Node
 {
 	private const float FirstPersonInteractionRange = 2.5f;
 	private const float ThirdPersonInteractionRange = 2f;
-	private const uint InteractionCollisionMask = uint.MaxValue;
+	[Export] public uint InteractionCollisionMask { get; set; } = 1u;
 
 	private Bootstrap _bootstrap;
 	private GameController _gameController;
@@ -21,7 +21,6 @@ public partial class PlayerInteractionController : Node
 	private ViewModelHUDInteraction _viewModelHudInteraction;
 	private Label _mainInteractionText;
 	private Label _failInteractionText;
-	private Label _phraseLine;
 	private CanvasItem _hudInteraction;
 	private CanvasItem _hudPhraseLine;
 	private CanvasItem _interactionDot;
@@ -37,6 +36,7 @@ public partial class PlayerInteractionController : Node
 	private string _dropText;
 	private string _throwText;
 	private PauseSubMenuSettingsSectionGeneralController _pauseSettings;
+	private Action _languageChangedHandler;
 
 	public delegate void PickableObjectsPickUpHandler(InteractionObjectsPickableTypes pickableType);
 	public delegate void PickableObjectsGetRidOfHandler();
@@ -82,22 +82,28 @@ public partial class PlayerInteractionController : Node
 
 		_mainInteractionText = viewModelHudInteraction?.TextInteractionMessageMain as Label;
 		_failInteractionText = viewModelHudInteraction?.TextInteractionMessageFail as Label;
-		_phraseLine = viewModelHudInteraction?.TextPhraseLine as Label;
 		_hudInteraction = viewModelHudInteraction?.HUDinteraction as CanvasItem;
 		_hudPhraseLine = viewModelHudInteraction?.HUDphraseLine as CanvasItem;
 		_interactionDot = viewModelHudInteraction?.DotInteraction as CanvasItem;
 
 		_gameController.OnPlayerEarlyDeath += OnPlayerUnavailable;
 		_gameController.OnPlayerRevive += RefreshInteractionRange;
-		_menuManager.OnOpenAnyMenu += RefreshInteractionRange;
-		_menuManager.OnCloseAnyMenu += RefreshInteractionRange;
-		_menuManager.OnOpenCutsceneMenu += RefreshInteractionRange;
-		_menuManager.OnCloseCutsceneMenu += RefreshInteractionRange;
-		_menuManager.OnOpenInteractionHUD += ShowCanvasHudInteraction;
-		_menuManager.OnCloseInteractionHUD += HideCanvasHudInteraction;
-		_playerCameraStateMachineController.OnCameraStateChanged += RefreshInteractionRange;
-		_playerBehaviour.OnPlayerArmed += HideInteractionDot;
-		_playerBehaviour.OnPlayerDisarmed += ShowInteractionDot;
+		if (_menuManager != null)
+		{
+			_menuManager.OnOpenAnyMenu += RefreshInteractionRange;
+			_menuManager.OnCloseAnyMenu += RefreshInteractionRange;
+			_menuManager.OnOpenCutsceneMenu += RefreshInteractionRange;
+			_menuManager.OnCloseCutsceneMenu += RefreshInteractionRange;
+			_menuManager.OnOpenInteractionHUD += ShowCanvasHudInteraction;
+			_menuManager.OnCloseInteractionHUD += HideCanvasHudInteraction;
+		}
+		if (_playerCameraStateMachineController != null)
+			_playerCameraStateMachineController.OnCameraStateChanged += RefreshInteractionRange;
+		if (_playerBehaviour != null)
+		{
+			_playerBehaviour.OnPlayerArmed += HideInteractionDot;
+			_playerBehaviour.OnPlayerDisarmed += ShowInteractionDot;
+		}
 		if (_gameSceneManager != null)
 		{
 			_gameSceneManager.OnBeginLoadingMainMenuOrEndGameTitlesScene += HideCanvasHudInteraction;
@@ -117,7 +123,10 @@ public partial class PlayerInteractionController : Node
 
 		_initialized = true;
 		if (_localizationManager != null)
-			_localizationManager.OnLanguageChanged += ChangeLanguage;
+		{
+			_languageChangedHandler = ChangeLanguage;
+			_localizationManager.OnLanguageChanged += _languageChangedHandler;
+		}
 		RefreshInteractionRange();
 		ChangeLanguage(localizationManager);
 		HideCanvasHudInteraction();
@@ -129,13 +138,18 @@ public partial class PlayerInteractionController : Node
 		if (!_initialized || !_bootstrap.IsBootstrapInitialized)
 			return;
 
+		RefreshInteractionRange();
 		UpdateLookTarget();
 		if (_currentPickable != null)
 		{
 			if (_inputDevice.GetKeyInteract() || _gameController.IsPlayerDead)
 				DropPickable();
 			else if (_currentThrowable != null && _inputDevice.GetKeyRightHandWeaponAttack())
+			{
 				OnThrowTrowable?.Invoke(_currentPickable.PickableType);
+				EarlyThrowThrowable();
+				LateThrowThrowable();
+			}
 			return;
 		}
 
@@ -206,7 +220,7 @@ public partial class PlayerInteractionController : Node
 	}
 
 	private bool CanInteract() => _currentPickable == null && !_gameController.IsPlayerDead &&
-		!_gameController.IsMainMenuOrEndGameTitlesActive && !_menuManager.IsAnyMenuOpened &&
+		!_gameController.IsMainMenuOrEndGameTitlesActive && !(_menuManager?.IsAnyMenuOpened ?? false) &&
 		!(_menuManager?.IsCutsceneMenuOpened ?? false);
 
 	private void SetCurrentPickable(IPickable pickable)
@@ -279,17 +293,24 @@ public partial class PlayerInteractionController : Node
 			return;
 		_gameController.OnPlayerEarlyDeath -= OnPlayerUnavailable;
 		_gameController.OnPlayerRevive -= RefreshInteractionRange;
-		_menuManager.OnOpenAnyMenu -= RefreshInteractionRange;
-		_menuManager.OnCloseAnyMenu -= RefreshInteractionRange;
-		_menuManager.OnOpenCutsceneMenu -= RefreshInteractionRange;
-		_menuManager.OnCloseCutsceneMenu -= RefreshInteractionRange;
-		_menuManager.OnOpenInteractionHUD -= ShowCanvasHudInteraction;
-		_menuManager.OnCloseInteractionHUD -= HideCanvasHudInteraction;
-		_playerCameraStateMachineController.OnCameraStateChanged -= RefreshInteractionRange;
-		_playerBehaviour.OnPlayerArmed -= HideInteractionDot;
-		_playerBehaviour.OnPlayerDisarmed -= ShowInteractionDot;
-		if (_localizationManager != null)
-			_localizationManager.OnLanguageChanged -= ChangeLanguage;
+		if (_menuManager != null)
+		{
+			_menuManager.OnOpenAnyMenu -= RefreshInteractionRange;
+			_menuManager.OnCloseAnyMenu -= RefreshInteractionRange;
+			_menuManager.OnOpenCutsceneMenu -= RefreshInteractionRange;
+			_menuManager.OnCloseCutsceneMenu -= RefreshInteractionRange;
+			_menuManager.OnOpenInteractionHUD -= ShowCanvasHudInteraction;
+			_menuManager.OnCloseInteractionHUD -= HideCanvasHudInteraction;
+		}
+		if (_playerCameraStateMachineController != null)
+			_playerCameraStateMachineController.OnCameraStateChanged -= RefreshInteractionRange;
+		if (_playerBehaviour != null)
+		{
+			_playerBehaviour.OnPlayerArmed -= HideInteractionDot;
+			_playerBehaviour.OnPlayerDisarmed -= ShowInteractionDot;
+		}
+		if (_localizationManager != null && _languageChangedHandler != null)
+			_localizationManager.OnLanguageChanged -= _languageChangedHandler;
 		if (_pauseSettings != null)
 		{
 			_pauseSettings.OnHUDfull -= ShowInteractionHud;

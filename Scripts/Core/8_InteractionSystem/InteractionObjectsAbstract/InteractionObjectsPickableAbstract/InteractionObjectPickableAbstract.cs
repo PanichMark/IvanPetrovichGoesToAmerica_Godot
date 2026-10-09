@@ -28,6 +28,8 @@ public abstract partial class InteractionObjectPickableAbstract : RigidBody3D, I
 	{
 		_originalCollisionLayer = CollisionLayer;
 		_originalCollisionMask = CollisionMask;
+		if (CollisionLayer == 0)
+			CollisionLayer = 1;
 		_collisionShapes = FindCollisionShapes(this);
 		_localizationManager = ServiceLocator.Resolve<LocalizationManager>();
 		UpdateLocalizedText();
@@ -52,16 +54,13 @@ public abstract partial class InteractionObjectPickableAbstract : RigidBody3D, I
 		if (IsObjectPickedUp || _isDestroyed || !IsInsideTree())
 			return;
 
+		_pickupAnchor = ResolvePickupAnchor();
+		if (_pickupAnchor == null)
+			return;
+
 		SetObjectPickedUp(true);
 		LinearVelocity = Vector3.Zero;
 		AngularVelocity = Vector3.Zero;
-
-		_pickupAnchor = ResolvePickupAnchor();
-		if (_pickupAnchor == null)
-		{
-			SetObjectPickedUp(false);
-			return;
-		}
 
 		if (isPickedUpByLoadSafeFile)
 		{
@@ -70,6 +69,7 @@ public abstract partial class InteractionObjectPickableAbstract : RigidBody3D, I
 		}
 
 		Vector3 target = _pickupAnchor.ToGlobal(GetPickupOffset());
+		Reparent(GetTree().CurrentScene ?? GetParent(), true);
 		_pickupTween?.Kill();
 		_pickupTween = CreateTween();
 		_pickupTween.TweenProperty(this, "global_position", target, 0.2f)
@@ -85,7 +85,9 @@ public abstract partial class InteractionObjectPickableAbstract : RigidBody3D, I
 
 		_pickupTween?.Kill();
 		_pickupTween = null;
-		Reparent(GetTree().CurrentScene ?? GetParent(), true);
+		Node dropParent = GetTree().CurrentScene ?? GetParent();
+		if (dropParent != null && GetParent() != dropParent)
+			Reparent(dropParent, true);
 		SetObjectPickedUp(false);
 		GlobalPosition += -GlobalBasis.Z * 0.3f;
 		_pickupAnchor = null;
@@ -131,7 +133,7 @@ public abstract partial class InteractionObjectPickableAbstract : RigidBody3D, I
 		foreach (CollisionShape3D shape in _collisionShapes)
 		{
 			if (GodotObject.IsInstanceValid(shape))
-				shape.SetDeferred(CollisionShape3D.PropertyName.Disabled, disabled);
+				shape.SetDeferred("disabled", disabled);
 		}
 	}
 
@@ -139,7 +141,7 @@ public abstract partial class InteractionObjectPickableAbstract : RigidBody3D, I
 	{
 		if (_localizationManager == null)
 		{
-			InteractionObjectNameUI = _interactionObjectNameSystem;
+			InteractionObjectNameUI = string.IsNullOrEmpty(_interactionObjectNameSystem) ? Name : _interactionObjectNameSystem;
 			InteractionHintMessageAction = "Pick up";
 			return;
 		}

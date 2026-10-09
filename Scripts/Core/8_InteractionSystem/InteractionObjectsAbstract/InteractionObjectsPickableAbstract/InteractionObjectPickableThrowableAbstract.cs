@@ -14,12 +14,23 @@ public abstract partial class InteractionObjectPickableThrowableAbstract : Inter
 		if (!IsObjectPickedUp)
 			return;
 
-		Node3D player = ServiceLocator.Resolve(ServiceLocatorGameObjectsEnum.Player) as Node3D;
 		Camera3D camera = GetViewport().GetCamera3D();
-		Vector3 throwDirection = camera?.GlobalBasis.Z * -1f ?? (player?.GlobalBasis.Z * -1f ?? -GlobalBasis.Z);
+		Vector3 throwDirection = camera != null ? -camera.GlobalBasis.Z : -GlobalBasis.Z;
+		if (camera != null)
+		{
+			float pitch = camera.GlobalRotation.X;
+			throwDirection -= camera.GlobalBasis.Y * Mathf.Tan(pitch);
+		}
 		DropOffObject();
 		_wasThrown = true;
 		ApplyCentralImpulse(throwDirection.Normalized() * ObjectThrowPower);
+	}
+
+	public override void _Ready()
+	{
+		base._Ready();
+		ContactMonitor = true;
+		MaxContactsReported = 4;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -30,8 +41,10 @@ public abstract partial class InteractionObjectPickableThrowableAbstract : Inter
 		for (int index = 0; index < GetContactCount(); index++)
 		{
 			GodotObject collider = GetContactColliderObject(index);
-			if (collider is Node node && node.HasMethod("TakeDamage"))
+			if (collider is Node node && node != this && node.HasMethod("TakeDamage"))
 				node.Call("TakeDamage", _damage);
+			if (_canDamageBreakable && collider is Node breakableNode && breakableNode != this && breakableNode.HasMethod("TakeBreakDamage"))
+				breakableNode.Call("TakeBreakDamage", _damage);
 			_wasThrown = false;
 			break;
 		}
