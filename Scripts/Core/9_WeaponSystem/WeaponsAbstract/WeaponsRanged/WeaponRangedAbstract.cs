@@ -75,4 +75,15 @@ public abstract partial class WeaponRangedAbstract : WeaponAbstract
 	}
 
 	protected virtual void OnShoot() { }
+
+	protected void SpawnBulletHoleDecal(Vector3 hitPosition, Vector3 hitNormal, bool isBloodTarget, Node3D hitParent = null)
+	{
+		if (!LeavesBulletHole)
+		{
+			return;
+		}
+
+		ServiceLocator.Resolve<ObjectPoolWeaponController>()
+			?.SpawnDecal(hitPosition, hitNormal, isBloodTarget, hitParent);
+	}
 }
