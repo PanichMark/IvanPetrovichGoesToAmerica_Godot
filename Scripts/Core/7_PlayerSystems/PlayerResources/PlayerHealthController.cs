@@ -66,6 +66,9 @@ public partial class PlayerHealthController : Node, IJsonSaveLoad
 
 	public void UseHealingItem()
 	{
+		if (_deathStarted)
+			return;
+
 		if (CurrentHealingItemsNumber <= 0)
 		{
 			GD.Print("0 Healing Items");
@@ -100,6 +103,9 @@ public partial class PlayerHealthController : Node, IJsonSaveLoad
 
 	public void ReceiveHealth(float health)
 	{
+		if (_deathStarted || health <= 0f)
+			return;
+
 		CurrentPlayerHealth = Mathf.Clamp(CurrentPlayerHealth + health, 0f, MaxPlayerHealth);
 		UpdateHealthBar();
 	}
