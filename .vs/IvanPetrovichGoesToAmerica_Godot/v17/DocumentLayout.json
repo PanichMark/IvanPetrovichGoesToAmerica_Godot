@@ -1,0 +1,156 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\PanichMark\\Desktop\\IvanPetrovichGoesToAmerica_Godot\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{89DC65A6-E3F5-449D-B4D2-2F8A72FF0D6A}|IvanPetrovichGoesToAmerica_Godot.csproj|c:\\users\\panichmark\\desktop\\ivanpetrovichgoestoamerica_godot\\scripts\\core\\6_menusystem\\huds\\hudweaponscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{89DC65A6-E3F5-449D-B4D2-2F8A72FF0D6A}|IvanPetrovichGoesToAmerica_Godot.csproj|solutionrelative:scripts\\core\\6_menusystem\\huds\\hudweaponscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{89DC65A6-E3F5-449D-B4D2-2F8A72FF0D6A}|IvanPetrovichGoesToAmerica_Godot.csproj|c:\\users\\panichmark\\desktop\\ivanpetrovichgoestoamerica_godot\\scripts\\core\\0_bootstrap\\bootstrapsubprocesses\\bootstrapsubprocessmissionssystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{89DC65A6-E3F5-449D-B4D2-2F8A72FF0D6A}|IvanPetrovichGoesToAmerica_Godot.csproj|solutionrelative:scripts\\core\\0_bootstrap\\bootstrapsubprocesses\\bootstrapsubprocessmissionssystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{89DC65A6-E3F5-449D-B4D2-2F8A72FF0D6A}|IvanPetrovichGoesToAmerica_Godot.csproj|c:\\users\\panichmark\\desktop\\ivanpetrovichgoestoamerica_godot\\scripts\\core\\0_bootstrap\\bootstrapsubprocesses\\bootstrapsubprocessinteractionsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{89DC65A6-E3F5-449D-B4D2-2F8A72FF0D6A}|IvanPetrovichGoesToAmerica_Godot.csproj|solutionrelative:scripts\\core\\0_bootstrap\\bootstrapsubprocesses\\bootstrapsubprocessinteractionsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{89DC65A6-E3F5-449D-B4D2-2F8A72FF0D6A}|IvanPetrovichGoesToAmerica_Godot.csproj|c:\\users\\panichmark\\desktop\\ivanpetrovichgoestoamerica_godot\\scripts\\core\\0_bootstrap\\configs\\configsplayer\\weapons\\configplayerweapons.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{89DC65A6-E3F5-449D-B4D2-2F8A72FF0D6A}|IvanPetrovichGoesToAmerica_Godot.csproj|solutionrelative:scripts\\core\\0_bootstrap\\configs\\configsplayer\\weapons\\configplayerweapons.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{89DC65A6-E3F5-449D-B4D2-2F8A72FF0D6A}|IvanPetrovichGoesToAmerica_Godot.csproj|c:\\users\\panichmark\\desktop\\ivanpetrovichgoestoamerica_godot\\scripts\\core\\0_bootstrap\\bootstrapsubprocesses\\bootstrapsubprocessmenusystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{89DC65A6-E3F5-449D-B4D2-2F8A72FF0D6A}|IvanPetrovichGoesToAmerica_Godot.csproj|solutionrelative:scripts\\core\\0_bootstrap\\bootstrapsubprocesses\\bootstrapsubprocessmenusystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{89DC65A6-E3F5-449D-B4D2-2F8A72FF0D6A}|IvanPetrovichGoesToAmerica_Godot.csproj|c:\\users\\panichmark\\desktop\\ivanpetrovichgoestoamerica_godot\\scripts\\core\\0_bootstrap\\configs\\configsplayer\\ammo\\configplayerammo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{89DC65A6-E3F5-449D-B4D2-2F8A72FF0D6A}|IvanPetrovichGoesToAmerica_Godot.csproj|solutionrelative:scripts\\core\\0_bootstrap\\configs\\configsplayer\\ammo\\configplayerammo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{89DC65A6-E3F5-449D-B4D2-2F8A72FF0D6A}|IvanPetrovichGoesToAmerica_Godot.csproj|c:\\users\\panichmark\\desktop\\ivanpetrovichgoestoamerica_godot\\scripts\\core\\0_bootstrap\\gamedata\\bootstrapgamedatalist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{89DC65A6-E3F5-449D-B4D2-2F8A72FF0D6A}|IvanPetrovichGoesToAmerica_Godot.csproj|solutionrelative:scripts\\core\\0_bootstrap\\gamedata\\bootstrapgamedatalist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{89DC65A6-E3F5-449D-B4D2-2F8A72FF0D6A}|IvanPetrovichGoesToAmerica_Godot.csproj|c:\\users\\panichmark\\desktop\\ivanpetrovichgoestoamerica_godot\\scripts\\core\\0_bootstrap\\bootstrap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{89DC65A6-E3F5-449D-B4D2-2F8A72FF0D6A}|IvanPetrovichGoesToAmerica_Godot.csproj|solutionrelative:scripts\\core\\0_bootstrap\\bootstrap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HUDweaponsController.cs",
+              "DocumentMoniker": "C:\\Users\\PanichMark\\Desktop\\IvanPetrovichGoesToAmerica_Godot\\Scripts\\Core\\6_MenuSystem\\HUDs\\HUDweaponsController.cs",
+              "RelativeDocumentMoniker": "Scripts\\Core\\6_MenuSystem\\HUDs\\HUDweaponsController.cs",
+              "ToolTip": "C:\\Users\\PanichMark\\Desktop\\IvanPetrovichGoesToAmerica_Godot\\Scripts\\Core\\6_MenuSystem\\HUDs\\HUDweaponsController.cs",
+              "RelativeToolTip": "Scripts\\Core\\6_MenuSystem\\HUDs\\HUDweaponsController.cs",
+              "ViewState": "AgIAAKQAAAAAAAAAAAAowMMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-09T18:16:43.088Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BootstrapSubProcessMissionsSystem.cs",
+              "DocumentMoniker": "C:\\Users\\PanichMark\\Desktop\\IvanPetrovichGoesToAmerica_Godot\\Scripts\\Core\\0_Bootstrap\\BootstrapSubProcesses\\BootstrapSubProcessMissionsSystem.cs",
+              "RelativeDocumentMoniker": "Scripts\\Core\\0_Bootstrap\\BootstrapSubProcesses\\BootstrapSubProcessMissionsSystem.cs",
+              "ToolTip": "C:\\Users\\PanichMark\\Desktop\\IvanPetrovichGoesToAmerica_Godot\\Scripts\\Core\\0_Bootstrap\\BootstrapSubProcesses\\BootstrapSubProcessMissionsSystem.cs",
+              "RelativeToolTip": "Scripts\\Core\\0_Bootstrap\\BootstrapSubProcesses\\BootstrapSubProcessMissionsSystem.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAA1wDcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-09T18:16:26.515Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BootstrapSubProcessInteractionSystem.cs",
+              "DocumentMoniker": "C:\\Users\\PanichMark\\Desktop\\IvanPetrovichGoesToAmerica_Godot\\Scripts\\Core\\0_Bootstrap\\BootstrapSubProcesses\\BootstrapSubProcessInteractionSystem.cs",
+              "RelativeDocumentMoniker": "Scripts\\Core\\0_Bootstrap\\BootstrapSubProcesses\\BootstrapSubProcessInteractionSystem.cs",
+              "ToolTip": "C:\\Users\\PanichMark\\Desktop\\IvanPetrovichGoesToAmerica_Godot\\Scripts\\Core\\0_Bootstrap\\BootstrapSubProcesses\\BootstrapSubProcessInteractionSystem.cs",
+              "RelativeToolTip": "Scripts\\Core\\0_Bootstrap\\BootstrapSubProcesses\\BootstrapSubProcessInteractionSystem.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAYwGUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-09T18:15:51.229Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ConfigPlayerWeapons.cs",
+              "DocumentMoniker": "C:\\Users\\PanichMark\\Desktop\\IvanPetrovichGoesToAmerica_Godot\\Scripts\\Core\\0_Bootstrap\\Configs\\ConfigsPlayer\\Weapons\\ConfigPlayerWeapons.cs",
+              "RelativeDocumentMoniker": "Scripts\\Core\\0_Bootstrap\\Configs\\ConfigsPlayer\\Weapons\\ConfigPlayerWeapons.cs",
+              "ToolTip": "C:\\Users\\PanichMark\\Desktop\\IvanPetrovichGoesToAmerica_Godot\\Scripts\\Core\\0_Bootstrap\\Configs\\ConfigsPlayer\\Weapons\\ConfigPlayerWeapons.cs",
+              "RelativeToolTip": "Scripts\\Core\\0_Bootstrap\\Configs\\ConfigsPlayer\\Weapons\\ConfigPlayerWeapons.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-09T18:15:40.212Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "BootstrapSubProcessMenuSystem.cs",
+              "DocumentMoniker": "C:\\Users\\PanichMark\\Desktop\\IvanPetrovichGoesToAmerica_Godot\\Scripts\\Core\\0_Bootstrap\\BootstrapSubProcesses\\BootstrapSubProcessMenuSystem.cs",
+              "RelativeDocumentMoniker": "Scripts\\Core\\0_Bootstrap\\BootstrapSubProcesses\\BootstrapSubProcessMenuSystem.cs",
+              "ToolTip": "C:\\Users\\PanichMark\\Desktop\\IvanPetrovichGoesToAmerica_Godot\\Scripts\\Core\\0_Bootstrap\\BootstrapSubProcesses\\BootstrapSubProcessMenuSystem.cs",
+              "RelativeToolTip": "Scripts\\Core\\0_Bootstrap\\BootstrapSubProcesses\\BootstrapSubProcessMenuSystem.cs",
+              "ViewState": "AgIAAF4AAAAAAAAAAAAwwHYAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-09T18:15:36.295Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ConfigPlayerAmmo.cs",
+              "DocumentMoniker": "C:\\Users\\PanichMark\\Desktop\\IvanPetrovichGoesToAmerica_Godot\\Scripts\\Core\\0_Bootstrap\\Configs\\ConfigsPlayer\\Ammo\\ConfigPlayerAmmo.cs",
+              "RelativeDocumentMoniker": "Scripts\\Core\\0_Bootstrap\\Configs\\ConfigsPlayer\\Ammo\\ConfigPlayerAmmo.cs",
+              "ToolTip": "C:\\Users\\PanichMark\\Desktop\\IvanPetrovichGoesToAmerica_Godot\\Scripts\\Core\\0_Bootstrap\\Configs\\ConfigsPlayer\\Ammo\\ConfigPlayerAmmo.cs",
+              "RelativeToolTip": "Scripts\\Core\\0_Bootstrap\\Configs\\ConfigsPlayer\\Ammo\\ConfigPlayerAmmo.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-09T18:15:23.689Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "BootstrapGameDataList.cs",
+              "DocumentMoniker": "C:\\Users\\PanichMark\\Desktop\\IvanPetrovichGoesToAmerica_Godot\\Scripts\\Core\\0_Bootstrap\\GameData\\BootstrapGameDataList.cs",
+              "RelativeDocumentMoniker": "Scripts\\Core\\0_Bootstrap\\GameData\\BootstrapGameDataList.cs",
+              "ToolTip": "C:\\Users\\PanichMark\\Desktop\\IvanPetrovichGoesToAmerica_Godot\\Scripts\\Core\\0_Bootstrap\\GameData\\BootstrapGameDataList.cs",
+              "RelativeToolTip": "Scripts\\Core\\0_Bootstrap\\GameData\\BootstrapGameDataList.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-09T18:15:12.777Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "BootStrap.cs",
+              "DocumentMoniker": "C:\\Users\\PanichMark\\Desktop\\IvanPetrovichGoesToAmerica_Godot\\Scripts\\Core\\0_Bootstrap\\BootStrap.cs",
+              "RelativeDocumentMoniker": "Scripts\\Core\\0_Bootstrap\\BootStrap.cs",
+              "ToolTip": "C:\\Users\\PanichMark\\Desktop\\IvanPetrovichGoesToAmerica_Godot\\Scripts\\Core\\0_Bootstrap\\BootStrap.cs",
+              "RelativeToolTip": "Scripts\\Core\\0_Bootstrap\\BootStrap.cs",
+              "ViewState": "AgIAAKkBAAAAAAAAAAAMwMUBAABXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-09T18:12:29.116Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IvanPetrovichGoesToAmerica_Godot", "IvanPetrovichGoesToAmerica_Godot.csproj", "{89DC65A6-E3F5-449D-B4D2-2F8A72FF0D6A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{89DC65A6-E3F5-449D-B4D2-2F8A72FF0D6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89DC65A6-E3F5-449D-B4D2-2F8A72FF0D6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89DC65A6-E3F5-449D-B4D2-2F8A72FF0D6A}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{89DC65A6-E3F5-449D-B4D2-2F8A72FF0D6A}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{89DC65A6-E3F5-449D-B4D2-2F8A72FF0D6A}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{89DC65A6-E3F5-449D-B4D2-2F8A72FF0D6A}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal
